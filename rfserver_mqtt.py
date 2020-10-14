@@ -25,6 +25,17 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(Subs)
 
 
+def on_message(client, userdata, msg):
+#sending command data to Node(Arduino)
+    print("ON MESSAGE")
+    logging.debug(client);
+    print(msg)
+    command = msg.payload.decode('utf-8')
+    rf95.send(bytes(command, "utf-8" ),l)
+    
+    rf95.waitPacketSent()
+    time.sleep(1)
+ 
 
 print ("Booting Done!")
 print ("Finding Node...")
@@ -32,8 +43,14 @@ print ("Finding Node...")
 client = mqtt.Client()
 client.connect("mqtt-staging.parkee.app", 1883, 60)
 client.on_connect = on_connect
+print("SOEMTHING")
 
 while True:
+    #print("BEFORE LOOP START")
+    client.loop_start()
+    #print("AFTER LOOP START")
+    #client.on_message = on_message
+    #print("END LINE")
     #waiting to recieve status from the node
     if rf95.available():
         print("Node Found")
@@ -42,17 +59,4 @@ while True:
         print ("Received Status: " + str(msg) + " (" + str(1) + ")") 
         
         time.sleep(1)
-
-def on_message(client, userdata, msg):
-#sending command data to Node(Arduino)
-    logging.debug(client);
-    print(msg)
-    command = msg.payload.decode('utf-8')
-    rf95.send(bytes(command, "utf-8" ),l)
-    
-    rf95.waitPacketSent()
-    time.sleep(1)
-   
-
-client.loop_start()
-client.on_message = on_message
+  
