@@ -25,7 +25,7 @@ def on_connect(client, userdata, rc):
 
 #print ("Booting Done!")
 #print ("Finding Node...")
-clientid = "mqttx_7eabb473"
+clientid = "mqttx_b96d51b7"
 mqttc = mqtt.Client(client_id=clientid)
 mqttc.connect("test.mosquitto.org", port=1883, keepalive=60)
 mqttc.loop_start()
