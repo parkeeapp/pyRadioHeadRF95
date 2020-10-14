@@ -36,7 +36,7 @@ topic_pl = ("parkinglock/motor")#publish
 #while True:
 #waiting to recieve status from the node 
 while True:
-   if rf95.available():
+    if rf95.available():
         print ("Node Found")
         (msg, l) = rf95.recv()
         
