@@ -44,12 +44,12 @@ while True:
         mqttc.publish(topic_pl, str(msg), True)
         time.sleep(0.5)
 #sending command data to Node(Arduino)
-        msg = input("Sending Command : ")
-        rf95.send(bytes(msg, "utf-8" ),l)
+#        msg = input("Sending Command : ")
+ #       rf95.send(bytes(msg, "utf-8" ),l)
         
-        rf95.waitPacketSent()
-        time.sleep(1)
-    else:
-        time.sleep(0.5)
+ #       rf95.waitPacketSent()
+  #      time.sleep(1)
+   # else:
+    #    time.sleep(0.5)
 
 
