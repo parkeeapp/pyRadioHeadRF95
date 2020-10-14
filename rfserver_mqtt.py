@@ -23,13 +23,16 @@ def on_connect(client, userdata, rc):
 
 
 
-#print ("Booting Done!")
-#print ("Finding Node...")
-clientid = "mqttx_b96d51b7"
+print ("Booting Done!")
+print ("Finding Node...")
+username = "4179e8c0-0df1-11eb-883c-638d8ce4c23d"
+password = "4a5739d0db6c6c224e0bf54b35a6f64a83cb287a"
+clientid = "8db30050-0df1-11eb-8779-7d56e82df461"
 mqttc = mqtt.Client(client_id=clientid)
-mqttc.connect("test.mosquitto.org", port=1883, keepalive=60)
+mqttc.username_pw_set(username, password=password)
+mqttc.connect("mqtt.mydevices.com", 1883, 60)
 mqttc.loop_start()
-topic_pl = ("parkinglock/motor")#publish
+topic_pl = ("parkinglock/"+username+"motor/" +clientid+"/data/1")#publish
 
 
 
