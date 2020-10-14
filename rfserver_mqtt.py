@@ -21,7 +21,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     # Subscribing in on_connect() - if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    Subs = ("")
+    Subs = ("PKE001/")
     client.subscribe(Subs)
 
 
@@ -49,7 +49,7 @@ while True:
     #print("BEFORE LOOP START")
     client.loop_start()
     #print("AFTER LOOP START")
-    #client.on_message = on_message
+    client.on_message = on_message
     #print("END LINE")
     #waiting to recieve status from the node
     if rf95.available():
@@ -59,4 +59,4 @@ while True:
         print ("Received Status: " + str(msg) + " (" + str(1) + ")") 
         
         time.sleep(1)
-  
+client.loop_stop()  
