@@ -21,7 +21,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     # Subscribing in on_connect() - if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    Subs = ("")
+    Subs = ("PKE001")
     client.subscribe(Subs)
 
 
