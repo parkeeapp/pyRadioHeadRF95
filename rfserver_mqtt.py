@@ -23,14 +23,15 @@ def on_connect(client, userdata, flags, rc):
     # reconnect then subscriptions will be renewed.
     Subs = ("PKE001")
     client.subscribe(Subs)
-
+    print(Subs)
 
 def on_message(client, userdata, msg):
 #sending command data to Node(Arduino)
     print("ON MESSAGE")
-    logging.debug(client);
+    print("Message received-> " + msg.topic + " " + str(msg.payload))
+#    logging.debug(client);
     print(msg)
-    command = msg.payload.decode('utf-8')
+    command = msg.payload.decode("utf-8")
     rf95.send(bytes(command, "utf-8" ),l)
     
     rf95.waitPacketSent()
@@ -39,25 +40,23 @@ def on_message(client, userdata, msg):
 
 print ("Booting Done!")
 print ("Finding Node...")
-
 client = mqtt.Client()
 client.connect("mqtt-staging.parkee.app", 1883, 60)
 client.on_connect = on_connect
-print("SOEMTHING")
+print("SOMETHING")
 
 while True:
-    #print("BEFORE LOOP START")
     client.loop_start()
+    #print("BEFORE LOOP START")
     #print("AFTER LOOP START")
-    #client.on_message = on_message
+    client.on_message = on_message
     #print("END LINE")
     #waiting to recieve status from the node
     if rf95.available():
         print("Node Found")
-        (msg, l) = rf95.recv()
+        (pesan,l) = rf95.recv()
         
-        print ("Received Status: " + str(msg) + " (" + str(1) + ")") 
+        print ("Received Status: " + str(pesan) + " (" + str(1) + ")") 
         
         time.sleep(1)
- 
- 
+client.loop_stop()
